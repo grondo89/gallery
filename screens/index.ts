@@ -1,0 +1,1 @@
+import AllPhotos from './AllPhotos'
