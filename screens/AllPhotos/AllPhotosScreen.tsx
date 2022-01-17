@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {NavigationFunctionComponent} from 'react-native-navigation';
+import {Navigation, NavigationFunctionComponent} from 'react-native-navigation';
 import {
   View,
   Text,
@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import PhotoThumbnail from '../../components/photos/PhotoThumbnail/PhotoThumbnail';
 
-const AllPhotosScreen: NavigationFunctionComponent = () => {
+const AllPhotosScreen: NavigationFunctionComponent = props => {
   const [photos, setPhotos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -37,7 +37,24 @@ const AllPhotosScreen: NavigationFunctionComponent = () => {
 
   const renderItem = (item: any) => {
     return (
-      <TouchableHighlight onPress={() => null}>
+      <TouchableHighlight
+        onPress={() =>
+          Navigation.push(props.componentId, {
+            component: {
+              name: 'FullSizePhoto',
+              passProps: {
+                photoUrl: item.item.url,
+              },
+              options: {
+                topBar: {
+                  title: {
+                    text: 'Settings',
+                  },
+                },
+              },
+            },
+          })
+        }>
         <PhotoThumbnail photoUrl={item.item.thumbnailUrl} />
       </TouchableHighlight>
     );
@@ -45,17 +62,11 @@ const AllPhotosScreen: NavigationFunctionComponent = () => {
 
   return photos.length > 0 ? (
     <SafeAreaView>
-      {!isLoading && (
+      {isLoading && (
         <View style={styles.loadingContainer}>
           <View
             style={{
-              //   display: 'flex',
-              //   justifyContent: 'center',
               backgroundColor: 'yellow',
-              //   width: '100%',
-              //   marginTop: 250,
-              //   alignItems: 'center',
-              //   margin: 'auto',
             }}>
             <ActivityIndicator color={'grey'} size="large" />
           </View>
