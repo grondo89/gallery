@@ -45,10 +45,23 @@ const AllPhotosScreen: NavigationFunctionComponent = () => {
 
   return photos.length > 0 ? (
     <SafeAreaView>
-      <View style={{alignSelf: 'stretch'}}>
-        {!isLoading && <ActivityIndicator color={'black'} size="large" />}
-        <FlatList data={photos} renderItem={renderItem} numColumns={3} />
-      </View>
+      {!isLoading && (
+        <View style={styles.loadingContainer}>
+          <View
+            style={{
+              //   display: 'flex',
+              //   justifyContent: 'center',
+              backgroundColor: 'yellow',
+              //   width: '100%',
+              //   marginTop: 250,
+              //   alignItems: 'center',
+              //   margin: 'auto',
+            }}>
+            <ActivityIndicator color={'grey'} size="large" />
+          </View>
+        </View>
+      )}
+      <FlatList data={photos} renderItem={renderItem} numColumns={3} />
     </SafeAreaView>
   ) : (
     <View>
@@ -59,15 +72,13 @@ const AllPhotosScreen: NavigationFunctionComponent = () => {
 
 const styles = StyleSheet.create({
   loadingContainer: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    opacity: 0.5,
-    backgroundColor: 'black',
-    justifyContent: 'center',
-    alignItems: 'center',
+    // flexDirection: 'row',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#F5FCFF88',
+    opacity: 0.7,
   },
 });
 
