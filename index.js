@@ -2,37 +2,13 @@
 import React from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
 import {Navigation} from 'react-native-navigation';
+import AllPhotosScreen from './screens/AllPhotos/AllPhotosScreen';
+import FullSizePhotoScreen from './screens/FullSizePhoto/FullSizePhotoScreen';
 
-// Home screen declaration
-const HomeScreen = props => {
-  return (
-    <View style={styles.root}>
-      <Text>Hello React Native Navigation 👋</Text>
-      <Button
-        title="Push Settings Screen"
-        color="#710ce3"
-        onPress={() =>
-          Navigation.push(props.componentId, {
-            component: {
-              name: 'Settings',
-              options: {
-                topBar: {
-                  title: {
-                    text: 'Settings',
-                  },
-                },
-              },
-            },
-          })
-        }
-      />
-    </View>
-  );
-};
-HomeScreen.options = {
+AllPhotosScreen.options = {
   topBar: {
     title: {
-      text: 'Home',
+      text: 'All Photos',
     },
   },
 };
@@ -46,8 +22,8 @@ const SettingsScreen = () => {
   );
 };
 
-Navigation.registerComponent('Home', () => HomeScreen);
-Navigation.registerComponent('Settings', () => SettingsScreen);
+Navigation.registerComponent('AllPhotos', () => AllPhotosScreen);
+Navigation.registerComponent('FullSizePhoto', () => FullSizePhotoScreen);
 
 Navigation.setDefaultOptions({
   statusBar: {
@@ -72,7 +48,7 @@ Navigation.events().registerAppLaunchedListener(async () => {
         children: [
           {
             component: {
-              name: 'Home',
+              name: 'AllPhotos',
             },
           },
         ],
