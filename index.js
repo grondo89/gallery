@@ -3,6 +3,7 @@ import React from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
 import {Navigation} from 'react-native-navigation';
 import AllPhotosScreen from './screens/AllPhotos/AllPhotosScreen';
+import AllAlbumsScreen from './screens/AllAlbums/AllAlbumsScreen';
 import FullSizePhotoScreen from './screens/FullSizePhoto/FullSizePhotoScreen';
 
 AllPhotosScreen.options = {
@@ -13,16 +14,16 @@ AllPhotosScreen.options = {
   },
 };
 
-// Settings screen declaration - this is the screen we'll be pushing into the stack
-const SettingsScreen = () => {
-  return (
-    <View style={styles.root}>
-      <Text>Settings Screen</Text>
-    </View>
-  );
+AllAlbumsScreen.options = {
+  topBar: {
+    title: {
+      text: 'All Albums',
+    },
+  },
 };
 
 Navigation.registerComponent('AllPhotos', () => AllPhotosScreen);
+Navigation.registerComponent('AllAlbums', () => AllAlbumsScreen);
 Navigation.registerComponent('FullSizePhoto', () => FullSizePhotoScreen);
 
 Navigation.setDefaultOptions({
@@ -37,7 +38,7 @@ Navigation.setDefaultOptions({
       color: 'white',
     },
     background: {
-      color: '#4d089a',
+      color: 'black',
     },
   },
 });
@@ -48,7 +49,7 @@ Navigation.events().registerAppLaunchedListener(async () => {
         children: [
           {
             component: {
-              name: 'AllPhotos',
+              name: 'AllAlbums',
             },
           },
         ],
