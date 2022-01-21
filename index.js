@@ -1,10 +1,10 @@
 // In index.js of a new project
 import React from 'react';
-import {View, Text, Button, StyleSheet} from 'react-native';
 import {Navigation} from 'react-native-navigation';
 import AllPhotosScreen from './screens/AllPhotos/AllPhotosScreen';
 import AllAlbumsScreen from './screens/AllAlbums/AllAlbumsScreen';
 import FullSizePhotoScreen from './screens/FullSizePhoto/FullSizePhotoScreen';
+import AlbumPhotosScreen from './screens/AlbumPhotos/AlbumPhotosScreen';
 
 AllPhotosScreen.options = {
   topBar: {
@@ -17,7 +17,7 @@ AllPhotosScreen.options = {
 AllAlbumsScreen.options = {
   topBar: {
     title: {
-      text: 'All Albums',
+      text: 'Albums',
     },
   },
 };
@@ -25,6 +25,7 @@ AllAlbumsScreen.options = {
 Navigation.registerComponent('AllPhotos', () => AllPhotosScreen);
 Navigation.registerComponent('AllAlbums', () => AllAlbumsScreen);
 Navigation.registerComponent('FullSizePhoto', () => FullSizePhotoScreen);
+Navigation.registerComponent('AlbumPhotos', () => AlbumPhotosScreen);
 
 Navigation.setDefaultOptions({
   statusBar: {
@@ -56,13 +57,4 @@ Navigation.events().registerAppLaunchedListener(async () => {
       },
     },
   });
-});
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'whitesmoke',
-  },
 });

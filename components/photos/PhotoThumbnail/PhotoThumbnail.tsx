@@ -12,7 +12,11 @@ const PhotoThumbnail: FC<PhotoThumbnailProps> = ({photoUrl}) => {
   return (
     <Image
       source={{uri: photoUrl}}
-      style={{width: windowHeight / 3, height: windowHeight / 3}}></Image>
+      style={{
+        width: windowHeight / 3,
+        height: windowHeight / 3,
+        margin: 1,
+      }}></Image>
   );
 };
 
