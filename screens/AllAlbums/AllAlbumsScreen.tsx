@@ -111,12 +111,10 @@ const AllAlbums: NavigationFunctionComponent = props => {
           onPress={() =>
             Navigation.push(props.componentId, {
               component: {
-                name: 'FullSizePhoto',
+                name: 'AlbumPhotos',
                 passProps: {
-                  photoUrl: item.item.url,
-                  quantity: item.item.quantity,
-                  title: item.item.title,
                   albumId: item.item.id,
+                  albumTitle: item.item.title,
                 },
                 options: {
                   topBar: {
