@@ -1,2 +1,2 @@
-export { default } from './AllPhotos'
-export * from './AllPhotos'
+export {default} from './AllPhotosScreen';
+export * from './AllPhotosScreen';

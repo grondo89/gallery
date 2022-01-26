@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {NavigationFunctionComponent} from 'react-native-navigation';
+import {Navigation, NavigationFunctionComponent} from 'react-native-navigation';
 import {
   View,
   Text,
@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import PhotoThumbnail from '../../components/photos/PhotoThumbnail/PhotoThumbnail';
 
-const AllPhotosScreen: NavigationFunctionComponent = () => {
+const AllPhotosScreen: NavigationFunctionComponent = props => {
   const [photos, setPhotos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -37,25 +37,36 @@ const AllPhotosScreen: NavigationFunctionComponent = () => {
 
   const renderItem = (item: any) => {
     return (
-      <TouchableHighlight onPress={() => null}>
+      <TouchableHighlight
+        onPress={() =>
+          Navigation.push(props.componentId, {
+            component: {
+              name: 'FullSizePhoto',
+              passProps: {
+                photoUrl: item.item.url,
+              },
+              options: {
+                topBar: {
+                  title: {
+                    text: 'Settings',
+                  },
+                },
+              },
+            },
+          })
+        }>
         <PhotoThumbnail photoUrl={item.item.thumbnailUrl} />
       </TouchableHighlight>
     );
   };
 
   return photos.length > 0 ? (
-    <SafeAreaView>
-      {!isLoading && (
+    <SafeAreaView style={styles.container}>
+      {isLoading && (
         <View style={styles.loadingContainer}>
           <View
             style={{
-              //   display: 'flex',
-              //   justifyContent: 'center',
               backgroundColor: 'yellow',
-              //   width: '100%',
-              //   marginTop: 250,
-              //   alignItems: 'center',
-              //   margin: 'auto',
             }}>
             <ActivityIndicator color={'grey'} size="large" />
           </View>
@@ -71,10 +82,11 @@ const AllPhotosScreen: NavigationFunctionComponent = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'black',
+  },
   loadingContainer: {
-    // flexDirection: 'row',
-    // justifyContent: 'center',
-    // alignItems: 'center',
     width: '100%',
     height: '100%',
     backgroundColor: '#F5FCFF88',
