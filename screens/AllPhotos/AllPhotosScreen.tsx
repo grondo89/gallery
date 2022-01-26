@@ -61,7 +61,7 @@ const AllPhotosScreen: NavigationFunctionComponent = props => {
   };
 
   return photos.length > 0 ? (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       {isLoading && (
         <View style={styles.loadingContainer}>
           <View
@@ -82,10 +82,11 @@ const AllPhotosScreen: NavigationFunctionComponent = props => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'black',
+  },
   loadingContainer: {
-    // flexDirection: 'row',
-    // justifyContent: 'center',
-    // alignItems: 'center',
     width: '100%',
     height: '100%',
     backgroundColor: '#F5FCFF88',

@@ -12,6 +12,9 @@ AllPhotosScreen.options = {
       text: 'All Photos',
     },
   },
+  bottomTab: {
+    text: 'All Photos',
+  },
 };
 
 AllAlbumsScreen.options = {
@@ -20,12 +23,16 @@ AllAlbumsScreen.options = {
       text: 'Albums',
     },
   },
+  bottomTab: {
+    text: 'Albums',
+  },
 };
 
 Navigation.registerComponent('AllPhotos', () => AllPhotosScreen);
 Navigation.registerComponent('AllAlbums', () => AllAlbumsScreen);
 Navigation.registerComponent('FullSizePhoto', () => FullSizePhotoScreen);
 Navigation.registerComponent('AlbumPhotos', () => AlbumPhotosScreen);
+Navigation.registerComponent('Search', () => AllPhotosScreen);
 
 Navigation.setDefaultOptions({
   statusBar: {
@@ -43,18 +50,49 @@ Navigation.setDefaultOptions({
     },
   },
 });
+
 Navigation.events().registerAppLaunchedListener(async () => {
-  Navigation.setRoot({
-    root: {
-      stack: {
-        children: [
-          {
-            component: {
-              name: 'AllAlbums',
-            },
-          },
-        ],
-      },
-    },
-  });
+  Navigation.setRoot(mainRoot);
 });
+
+const mainRoot = {
+  root: {
+    bottomTabs: {
+      children: [
+        {
+          stack: {
+            children: [
+              {
+                component: {
+                  name: 'AllPhotos',
+                },
+              },
+            ],
+          },
+        },
+        {
+          stack: {
+            children: [
+              {
+                component: {
+                  name: 'AllAlbums',
+                },
+              },
+            ],
+          },
+        },
+        {
+          stack: {
+            children: [
+              {
+                component: {
+                  name: 'Search',
+                },
+              },
+            ],
+          },
+        },
+      ],
+    },
+  },
+};
