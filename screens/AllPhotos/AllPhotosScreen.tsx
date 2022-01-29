@@ -10,30 +10,39 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from 'react-native';
+import {observer} from 'mobx-react-lite';
+
 import PhotoThumbnail from '../../components/photos/PhotoThumbnail/PhotoThumbnail';
+import {useStore} from '../../store';
 
 const AllPhotosScreen: NavigationFunctionComponent = props => {
-  const [photos, setPhotos] = useState([]);
+  // const [photos, setPhotos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  async function getPhotos() {
-    try {
-      setIsLoading(true);
-      const response = await fetch(
-        'https://jsonplaceholder.typicode.com/photos',
-      );
-      const allPhotos = await response.json();
-      await setPhotos(allPhotos);
-    } catch (err) {
-      console.log(err);
-      setError(true);
-    }
-    setIsLoading(false);
-  }
-  useEffect(() => {
-    getPhotos();
-  }, []);
+  const {photoStore} = useStore();
+
+  const {photos} = photoStore;
+
+  // console.log('lasdlasdl[', photoStore.photos[0]);
+
+  // async function getPhotos() {
+  //   try {
+  //     setIsLoading(true);
+  //     const response = await fetch(
+  //       'https://jsonplaceholder.typicode.com/photos',
+  //     );
+  //     const allPhotos = await response.json();
+  //     await setPhotos(allPhotos);
+  //   } catch (err) {
+  //     console.log(err);
+  //     setError(true);
+  //   }
+  //   setIsLoading(false);
+  // }
+  // useEffect(() => {
+  //   getPhotos();
+  // }, []);
 
   const renderItem = (item: any) => {
     return (
@@ -94,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AllPhotosScreen;
+export default observer(AllPhotosScreen);
