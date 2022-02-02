@@ -10,30 +10,34 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from 'react-native';
+import {observer} from 'mobx-react-lite';
+
+import {useStore} from '../../store';
 import PhotoThumbnail from '../../components/photos/PhotoThumbnail/PhotoThumbnail';
 
 const AllPhotosScreen: NavigationFunctionComponent = props => {
-  const [photos, setPhotos] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  // const [photos, setPhotos] = useState([]);
+  const {photoStore} = useStore();
+  const {photos} = photoStore;
+  // const [isLoading, setIsLoading] = useState(false);
 
-  async function getPhotos() {
-    try {
-      setIsLoading(true);
-      const response = await fetch(
-        'https://jsonplaceholder.typicode.com/photos',
-      );
-      const allPhotos = await response.json();
-      await setPhotos(allPhotos);
-    } catch (err) {
-      console.log(err);
-      setError(true);
-    }
-    setIsLoading(false);
-  }
-  useEffect(() => {
-    getPhotos();
-  }, []);
+  // async function getPhotos() {
+  //   try {
+  //     setIsLoading(true);
+  //     const response = await fetch(
+  //       'https://jsonplaceholder.typicode.com/photos',
+  //     );
+  //     const allPhotos = await response.json();
+  //     await setPhotos(allPhotos);
+  //   } catch (err) {
+  //     console.log(err);
+  //     setError(true);
+  //   }
+  //   setIsLoading(false);
+  // }
+  // useEffect(() => {
+  //   getPhotos();
+  // }, []);
 
   const renderItem = (item: any) => {
     return (
@@ -60,9 +64,13 @@ const AllPhotosScreen: NavigationFunctionComponent = props => {
     );
   };
 
+  if (photoStore.isLoading) {
+    return <Text>we loading in this mf</Text>;
+  }
+
   return photos.length > 0 ? (
     <SafeAreaView style={styles.container}>
-      {isLoading && (
+      {/* {isLoading && (
         <View style={styles.loadingContainer}>
           <View
             style={{
@@ -71,7 +79,7 @@ const AllPhotosScreen: NavigationFunctionComponent = props => {
             <ActivityIndicator color={'grey'} size="large" />
           </View>
         </View>
-      )}
+      )} */}
       <FlatList data={photos} renderItem={renderItem} numColumns={3} />
     </SafeAreaView>
   ) : (
@@ -94,4 +102,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AllPhotosScreen;
+export default observer(AllPhotosScreen);
