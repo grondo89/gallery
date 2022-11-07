@@ -1,11 +1,5 @@
 import React, {FC, useRef, useState} from 'react';
-import {
-  View,
-  Animated,
-  Image,
-  Dimensions,
-  TouchableHighlight,
-} from 'react-native';
+import {Animated, Image, Dimensions, TouchableHighlight} from 'react-native';
 
 type FullSizePhotoScreenProps = {
   photoUrl: string;
@@ -36,13 +30,15 @@ const FullSizePhotoScreen: FC<FullSizePhotoScreenProps> = ({photoUrl}) => {
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <TouchableHighlight style={{zIndex: 1}} onPress={toggleBackgroundColor}>
+    <>
+      <TouchableHighlight
+        style={{
+          zIndex: 1,
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        onPress={toggleBackgroundColor}>
         <Image
           source={{uri: photoUrl}}
           style={{
@@ -63,7 +59,7 @@ const FullSizePhotoScreen: FC<FullSizePhotoScreenProps> = ({photoUrl}) => {
           opacity: opacity,
         }}
       />
-    </View>
+    </>
   );
 };
 
