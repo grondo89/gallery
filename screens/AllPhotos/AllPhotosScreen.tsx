@@ -11,28 +11,20 @@ import {
   StyleSheet,
 } from 'react-native';
 import PhotoThumbnail from '../../components/photos/PhotoThumbnail/PhotoThumbnail';
+import {getPhotos} from '../../api/photos/photosRequests';
 
 const AllPhotosScreen: NavigationFunctionComponent = props => {
   const [photos, setPhotos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  async function getPhotos() {
-    try {
-      setIsLoading(true);
-      const response = await fetch(
-        'https://jsonplaceholder.typicode.com/photos',
-      );
-      const allPhotos = await response.json();
-      await setPhotos(allPhotos);
-    } catch (err) {
-      console.log(err);
-      setError(true);
-    }
-    setIsLoading(false);
-  }
+  const fetchPhotos = async () => {
+    const res = await getPhotos();
+    await setPhotos(res);
+  };
+
   useEffect(() => {
-    getPhotos();
+    fetchPhotos();
   }, []);
 
   const renderItem = (item: any) => {
@@ -55,7 +47,7 @@ const AllPhotosScreen: NavigationFunctionComponent = props => {
             },
           })
         }>
-        <PhotoThumbnail photoUrl={item.item.thumbnailUrl} />
+        <PhotoThumbnail photoUrl={item.item.url} />
       </TouchableHighlight>
     );
   };
